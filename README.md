@@ -18,7 +18,25 @@ docker run -d \
   rickythefox/sqlserver-fts:latest
 ```
 
-Verify FTS is installed:
+### Apple Silicon / arm64
+
+Base image is `linux/amd64` only. Force the platform:
+
+```bash
+docker run -d \
+  --platform linux/amd64 \
+  -e ACCEPT_EULA=Y \
+  -e MSSQL_SA_PASSWORD=YourStrong!Passw0rd \
+  -p 1433:1433 \
+  --name sqlserver-fts \
+  rickythefox/sqlserver-fts:latest
+```
+
+Runs under Rosetta/QEMU emulation, slower than native.
+
+### Verify
+
+Check FTS is installed:
 
 ```sql
 SELECT SERVERPROPERTY('IsFullTextInstalled');  -- returns 1
